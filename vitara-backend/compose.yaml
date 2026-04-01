@@ -1,0 +1,21 @@
+services:
+  vitara-backend:
+    build:
+      context: /home/sydrv/docker/vitara-backend/repo
+      dockerfile: /home/sydrv/docker/vitara-backend/Dockerfile
+    container_name: vitara-backend
+    restart: unless-stopped
+    ports:
+      - "8092:8080"
+    env_file:
+      - .env
+    environment:
+      - PORT=8080
+      - HOST=0.0.0.0
+      - NODE_ENV=production
+      - GEMINI_MODEL=gemini-3.1-pro-preview
+    volumes:
+      - vitara-data:/app/data
+
+volumes:
+  vitara-data:

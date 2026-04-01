@@ -1,0 +1,7 @@
+services:
+  unterhaching-dashboard:
+    build: .
+    container_name: unterhaching-dashboard
+    restart: unless-stopped
+    ports:
+      - "8090:8080"

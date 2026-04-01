@@ -1,0 +1,9 @@
+services:
+  banana-snake:
+    image: nginx:alpine
+    container_name: banana-snake
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+    ports:
+      - "8091:80"
+    restart: unless-stopped

@@ -1,0 +1,517 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 0 },
+      "id": 100,
+      "title": "🖥️ GPU — RTX 5070 Ti",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 60 },
+            { "color": "red", "value": 85 }
+          ]},
+          "unit": "percent", "min": 0, "max": 100
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 1 },
+      "id": 1,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "showThresholdLabels": false, "showThresholdMarkers": true, "sizing": "auto" },
+      "title": "GPU Utilization",
+      "type": "gauge",
+      "targets": [{ "expr": "nvidia_gpu_utilization_percent", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 65 },
+            { "color": "red", "value": 80 }
+          ]},
+          "unit": "celsius", "min": 0, "max": 100
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 4, "y": 1 },
+      "id": 2,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "showThresholdLabels": false, "showThresholdMarkers": true, "sizing": "auto" },
+      "title": "GPU Temp",
+      "type": "gauge",
+      "targets": [{ "expr": "nvidia_temperature_celsius", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "blue", "value": null },
+            { "color": "green", "value": 30 },
+            { "color": "yellow", "value": 70 },
+            { "color": "red", "value": 90 }
+          ]},
+          "unit": "percent", "min": 0, "max": 100
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 8, "y": 1 },
+      "id": 3,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "showThresholdLabels": false, "showThresholdMarkers": true, "sizing": "auto" },
+      "title": "GPU Fan",
+      "type": "gauge",
+      "targets": [{ "expr": "nvidia_fan_speed_percent", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "color": { "mode": "palette-classic" },
+          "unit": "bytes",
+          "custom": { "fillOpacity": 30, "lineWidth": 2, "stacking": { "mode": "none" } }
+        },
+        "overrides": [
+          { "matcher": { "id": "byName", "options": "Used" }, "properties": [{ "id": "color", "value": { "fixedColor": "#FF6B6B", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "Free" }, "properties": [{ "id": "color", "value": { "fixedColor": "#51CF66", "mode": "fixed" } }] }
+        ]
+      },
+      "gridPos": { "h": 5, "w": 6, "x": 12, "y": 1 },
+      "id": 4,
+      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "title": "GPU VRAM",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "nvidia_memory_used_bytes", "legendFormat": "Used", "refId": "A" },
+        { "expr": "nvidia_memory_free_bytes", "legendFormat": "Free", "refId": "B" }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "watt",
+          "custom": { "fillOpacity": 20, "lineWidth": 2 },
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": [
+          { "matcher": { "id": "byName", "options": "Power Draw" }, "properties": [{ "id": "color", "value": { "fixedColor": "#FF922B", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "Power Limit" }, "properties": [{ "id": "color", "value": { "fixedColor": "#FF6B6B", "mode": "fixed" } }, { "id": "custom.lineStyle", "value": { "fill": "dash", "dash": [10, 10] } }, { "id": "custom.fillOpacity", "value": 0 }] }
+        ]
+      },
+      "gridPos": { "h": 5, "w": 6, "x": 18, "y": 1 },
+      "id": 5,
+      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "title": "GPU Power",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "nvidia_power_draw_watts", "legendFormat": "Power Draw", "refId": "A" },
+        { "expr": "nvidia_power_limit_watts", "legendFormat": "Power Limit", "refId": "B" }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 6 },
+      "id": 101,
+      "title": "⚡ CPU",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 60 },
+            { "color": "red", "value": 85 }
+          ]},
+          "unit": "percent", "min": 0, "max": 100
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 7 },
+      "id": 10,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "showThresholdLabels": false, "showThresholdMarkers": true, "sizing": "auto" },
+      "title": "CPU Usage",
+      "type": "gauge",
+      "targets": [{ "expr": "100 - (avg(irate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "custom": { "fillOpacity": 30, "lineWidth": 1, "stacking": { "mode": "normal" } },
+          "color": { "mode": "palette-classic" }
+        }
+      },
+      "gridPos": { "h": 5, "w": 10, "x": 4, "y": 7 },
+      "id": 11,
+      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "title": "CPU Usage per Core",
+      "type": "timeseries",
+      "targets": [{ "expr": "100 - (irate(node_cpu_seconds_total{mode=\"idle\"}[5m]) * 100)", "legendFormat": "CPU {{cpu}}", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "custom": { "fillOpacity": 20, "lineWidth": 2 },
+          "color": { "mode": "palette-classic" }
+        }
+      },
+      "gridPos": { "h": 5, "w": 10, "x": 14, "y": 7 },
+      "id": 12,
+      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "title": "CPU Usage (User / System / IOWait)",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "avg(irate(node_cpu_seconds_total{mode=\"user\"}[5m])) * 100", "legendFormat": "User", "refId": "A" },
+        { "expr": "avg(irate(node_cpu_seconds_total{mode=\"system\"}[5m])) * 100", "legendFormat": "System", "refId": "B" },
+        { "expr": "avg(irate(node_cpu_seconds_total{mode=\"iowait\"}[5m])) * 100", "legendFormat": "IOWait", "refId": "C" }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 12 },
+      "id": 102,
+      "title": "🧠 Memory",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 70 },
+            { "color": "red", "value": 90 }
+          ]},
+          "unit": "percent", "min": 0, "max": 100
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 13 },
+      "id": 20,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "auto", "showThresholdLabels": false, "showThresholdMarkers": true, "sizing": "auto" },
+      "title": "RAM Usage",
+      "type": "gauge",
+      "targets": [{ "expr": "(1 - node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes) * 100", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "custom": { "fillOpacity": 30, "lineWidth": 2 },
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": [
+          { "matcher": { "id": "byName", "options": "Used" }, "properties": [{ "id": "color", "value": { "fixedColor": "#FF6B6B", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "Available" }, "properties": [{ "id": "color", "value": { "fixedColor": "#51CF66", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "Cached" }, "properties": [{ "id": "color", "value": { "fixedColor": "#74C0FC", "mode": "fixed" } }] }
+        ]
+      },
+      "gridPos": { "h": 5, "w": 10, "x": 4, "y": 13 },
+      "id": 21,
+      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "title": "RAM Usage",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes", "legendFormat": "Used", "refId": "A" },
+        { "expr": "node_memory_MemAvailable_bytes", "legendFormat": "Available", "refId": "B" },
+        { "expr": "node_memory_Cached_bytes", "legendFormat": "Cached", "refId": "C" }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "custom": { "fillOpacity": 30, "lineWidth": 2 },
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": [
+          { "matcher": { "id": "byName", "options": "Swap Used" }, "properties": [{ "id": "color", "value": { "fixedColor": "#FF922B", "mode": "fixed" } }] }
+        ]
+      },
+      "gridPos": { "h": 5, "w": 10, "x": 14, "y": 13 },
+      "id": 22,
+      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "title": "Swap Usage",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "node_memory_SwapTotal_bytes - node_memory_SwapFree_bytes", "legendFormat": "Swap Used", "refId": "A" },
+        { "expr": "node_memory_SwapTotal_bytes", "legendFormat": "Swap Total", "refId": "B" }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 18 },
+      "id": 103,
+      "title": "💾 Disk",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 70 },
+            { "color": "red", "value": 90 }
+          ]}
+        }
+      },
+      "gridPos": { "h": 5, "w": 5, "x": 0, "y": 19 },
+      "id": 31,
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "title": "System Disk",
+      "type": "gauge",
+      "targets": [
+        { "expr": "(1 - node_filesystem_avail_bytes{mountpoint=\"/\"} / node_filesystem_size_bytes{mountpoint=\"/\"}) * 100", "legendFormat": "Used", "refId": "A" }
+      ],
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 70 },
+            { "color": "red", "value": 90 }
+          ]}
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 19 },
+      "id": 31
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "title": "",
+      "type": "stat",
+      "transparent": true,
+      "targets": [
+        { "expr": "node_filesystem_size_bytes{mountpoint=\"/\"} - node_filesystem_avail_bytes{mountpoint=\"/\"}", "legendFormat": "Used", "refId": "A" },
+        { "expr": "node_filesystem_size_bytes{mountpoint=\"/\"}", "legendFormat": "Total", "refId": "B" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "vertical", "colorMode": "none", "textMode": "auto", "graphMode": "none" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "color": { "mode": "fixed", "fixedColor": "text" },
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "text", "value": null }] }
+        }
+      },
+      "gridPos": { "h": 5, "w": 3, "x": 4, "y": 19 },
+      "id": 30
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "title": "NAS Disk",
+      "type": "gauge",
+      "targets": [
+        { "expr": "(1 - node_filesystem_avail_bytes{mountpoint=\"/mnt/nas-multimedia\"} / node_filesystem_size_bytes{mountpoint=\"/mnt/nas-multimedia\"}) * 100", "legendFormat": "Used", "refId": "A" }
+      ],
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 70 },
+            { "color": "red", "value": 90 }
+          ]}
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 7, "y": 19 },
+      "id": 131
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "title": "",
+      "type": "stat",
+      "transparent": true,
+      "targets": [
+        { "expr": "node_filesystem_size_bytes{mountpoint=\"/mnt/nas-multimedia\"} - node_filesystem_avail_bytes{mountpoint=\"/mnt/nas-multimedia\"}", "legendFormat": "Used", "refId": "A" },
+        { "expr": "node_filesystem_size_bytes{mountpoint=\"/mnt/nas-multimedia\"}", "legendFormat": "Total", "refId": "B" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "vertical", "colorMode": "none", "textMode": "auto", "graphMode": "none" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "color": { "mode": "fixed", "fixedColor": "text" },
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "text", "value": null }] }
+        }
+      },
+      "gridPos": { "h": 5, "w": 3, "x": 11, "y": 19 },
+      "id": 132
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "Bps",
+          "custom": { "fillOpacity": 20, "lineWidth": 2 },
+          "color": { "mode": "palette-classic" }
+        }
+      },
+      "gridPos": { "h": 5, "w": 10, "x": 14, "y": 19 },
+      "id": 32,
+      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "title": "Disk I/O",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "irate(node_disk_read_bytes_total{device=\"sda\"}[5m])", "legendFormat": "Read", "refId": "A" },
+        { "expr": "irate(node_disk_written_bytes_total{device=\"sda\"}[5m])", "legendFormat": "Write", "refId": "B" }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 24 },
+      "id": 104,
+      "title": "🌐 Network",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bps",
+          "custom": { "fillOpacity": 20, "lineWidth": 2 },
+          "color": { "mode": "palette-classic" }
+        },
+        "overrides": [
+          { "matcher": { "id": "byName", "options": "Receive" }, "properties": [{ "id": "color", "value": { "fixedColor": "#51CF66", "mode": "fixed" } }] },
+          { "matcher": { "id": "byName", "options": "Transmit" }, "properties": [{ "id": "color", "value": { "fixedColor": "#339AF0", "mode": "fixed" } }] }
+        ]
+      },
+      "gridPos": { "h": 5, "w": 12, "x": 0, "y": 25 },
+      "id": 40,
+      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "title": "Network Traffic",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "irate(node_network_receive_bytes_total{device!~\"lo|docker.*|br.*|veth.*\"}[5m]) * 8", "legendFormat": "Receive", "refId": "A" },
+        { "expr": "irate(node_network_transmit_bytes_total{device!~\"lo|docker.*|br.*|veth.*\"}[5m]) * 8", "legendFormat": "Transmit", "refId": "B" }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "custom": { "fillOpacity": 20, "lineWidth": 2 },
+          "color": { "mode": "palette-classic" }
+        }
+      },
+      "gridPos": { "h": 5, "w": 12, "x": 12, "y": 25 },
+      "id": 41,
+      "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
+      "title": "System Load %",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "node_load1 / on() count(count by (cpu) (node_cpu_seconds_total)) * 100", "legendFormat": "Load", "refId": "A" }
+      ]
+    },
+    {
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 30 },
+      "id": 105,
+      "title": "📊 System Info",
+      "type": "row"
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": { "unit": "s" }
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 31 },
+      "id": 50,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "value", "graphMode": "none" },
+      "title": "Uptime",
+      "type": "stat",
+      "targets": [{ "expr": "time() - node_boot_time_seconds", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": { "unit": "none" }
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 31 },
+      "id": 51,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "value", "graphMode": "area" },
+      "title": "Processes",
+      "type": "stat",
+      "targets": [
+        { "expr": "node_procs_running", "legendFormat": "Running", "refId": "A" },
+        { "expr": "node_procs_blocked", "legendFormat": "Blocked", "refId": "B" }
+      ]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": { "unit": "bytes" }
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 31 },
+      "id": 52,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "value", "graphMode": "none" },
+      "title": "GPU VRAM Used",
+      "type": "stat",
+      "targets": [{ "expr": "nvidia_memory_used_bytes", "legendFormat": "Used", "refId": "A" }]
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "fieldConfig": {
+        "defaults": { "unit": "bytes" }
+      },
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 31 },
+      "id": 53,
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "value", "graphMode": "none" },
+      "title": "RAM Total",
+      "type": "stat",
+      "targets": [{ "expr": "node_memory_MemTotal_bytes", "legendFormat": "Total", "refId": "A" }]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 39,
+  "tags": ["system", "overview"],
+  "templating": { "list": [] },
+  "time": { "from": "now-1h", "to": "now" },
+  "timepicker": {},
+  "timezone": "Europe/Berlin",
+  "title": "🖥️ System Overview",
+  "uid": "system-overview",
+  "version": 1
+}

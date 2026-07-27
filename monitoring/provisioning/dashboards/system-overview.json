@@ -405,6 +405,55 @@
     },
     {
       "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "title": "Fast-Media HDD",
+      "description": "SMB-Freigabe //192.168.1.80/movies, gemountet als /mnt/nas-movies-ext",
+      "type": "gauge",
+      "targets": [
+        { "expr": "(1 - node_filesystem_avail_bytes{mountpoint=\"/mnt/nas-movies-ext\"} / node_filesystem_size_bytes{mountpoint=\"/mnt/nas-movies-ext\"}) * 100", "legendFormat": "Used", "refId": "A" }
+      ],
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 70 },
+            { "color": "red", "value": 90 }
+          ]}
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 24 },
+      "id": 135
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "title": "",
+      "type": "stat",
+      "transparent": true,
+      "targets": [
+        { "expr": "node_filesystem_size_bytes{mountpoint=\"/mnt/nas-movies-ext\"} - node_filesystem_avail_bytes{mountpoint=\"/mnt/nas-movies-ext\"}", "legendFormat": "Used", "refId": "A" },
+        { "expr": "node_filesystem_size_bytes{mountpoint=\"/mnt/nas-movies-ext\"}", "legendFormat": "Total", "refId": "B" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "vertical", "colorMode": "none", "textMode": "auto", "graphMode": "none" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "color": { "mode": "fixed", "fixedColor": "text" },
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "text", "value": null }] }
+        }
+      },
+      "gridPos": { "h": 5, "w": 3, "x": 4, "y": 24 },
+      "id": 136
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
       "fieldConfig": {
         "defaults": {
           "unit": "Bps",
@@ -412,7 +461,7 @@
           "color": { "mode": "palette-classic" }
         }
       },
-      "gridPos": { "h": 5, "w": 24, "x": 0, "y": 24 },
+      "gridPos": { "h": 5, "w": 17, "x": 7, "y": 24 },
       "id": 32,
       "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
       "title": "Disk I/O",

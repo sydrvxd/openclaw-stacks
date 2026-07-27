@@ -378,6 +378,54 @@
     },
     {
       "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "title": "SSD 1TB",
+      "type": "gauge",
+      "targets": [
+        { "expr": "(1 - node_filesystem_avail_bytes{mountpoint=\"/srv/usenet-indexer-data\"} / node_filesystem_size_bytes{mountpoint=\"/srv/usenet-indexer-data\"}) * 100", "legendFormat": "Used", "refId": "A" }
+      ],
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "orientation": "auto",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null },
+            { "color": "yellow", "value": 70 },
+            { "color": "red", "value": 90 }
+          ]}
+        }
+      },
+      "gridPos": { "h": 5, "w": 4, "x": 14, "y": 19 },
+      "id": 133
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "title": "",
+      "type": "stat",
+      "transparent": true,
+      "targets": [
+        { "expr": "node_filesystem_size_bytes{mountpoint=\"/srv/usenet-indexer-data\"} - node_filesystem_avail_bytes{mountpoint=\"/srv/usenet-indexer-data\"}", "legendFormat": "Used", "refId": "A" },
+        { "expr": "node_filesystem_size_bytes{mountpoint=\"/srv/usenet-indexer-data\"}", "legendFormat": "Total", "refId": "B" }
+      ],
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "orientation": "vertical", "colorMode": "none", "textMode": "auto", "graphMode": "none" },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "bytes",
+          "color": { "mode": "fixed", "fixedColor": "text" },
+          "thresholds": { "mode": "absolute", "steps": [{ "color": "text", "value": null }] }
+        }
+      },
+      "gridPos": { "h": 5, "w": 3, "x": 18, "y": 19 },
+      "id": 134
+    },
+    {
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
       "fieldConfig": {
         "defaults": {
           "unit": "Bps",
@@ -385,19 +433,19 @@
           "color": { "mode": "palette-classic" }
         }
       },
-      "gridPos": { "h": 5, "w": 10, "x": 14, "y": 19 },
+      "gridPos": { "h": 5, "w": 24, "x": 0, "y": 24 },
       "id": 32,
       "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
       "title": "Disk I/O",
       "type": "timeseries",
       "targets": [
-        { "expr": "irate(node_disk_read_bytes_total{device=\"sda\"}[5m])", "legendFormat": "Read", "refId": "A" },
-        { "expr": "irate(node_disk_written_bytes_total{device=\"sda\"}[5m])", "legendFormat": "Write", "refId": "B" }
+        { "expr": "irate(node_disk_read_bytes_total{device=~\"sda|sdb\"}[5m])", "legendFormat": "{{device}} read", "refId": "A" },
+        { "expr": "irate(node_disk_written_bytes_total{device=~\"sda|sdb\"}[5m])", "legendFormat": "{{device}} write", "refId": "B" }
       ]
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 24 },
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 29 },
       "id": 104,
       "title": "🌐 Network",
       "type": "row"
@@ -415,7 +463,7 @@
           { "matcher": { "id": "byName", "options": "Transmit" }, "properties": [{ "id": "color", "value": { "fixedColor": "#339AF0", "mode": "fixed" } }] }
         ]
       },
-      "gridPos": { "h": 5, "w": 12, "x": 0, "y": 25 },
+      "gridPos": { "h": 5, "w": 12, "x": 0, "y": 30 },
       "id": 40,
       "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
       "title": "Network Traffic",
@@ -436,7 +484,7 @@
           "color": { "mode": "palette-classic" }
         }
       },
-      "gridPos": { "h": 5, "w": 12, "x": 12, "y": 25 },
+      "gridPos": { "h": 5, "w": 12, "x": 12, "y": 30 },
       "id": 41,
       "options": { "tooltip": { "mode": "multi" }, "legend": { "displayMode": "list", "placement": "bottom" } },
       "title": "System Load %",
@@ -447,7 +495,7 @@
     },
     {
       "collapsed": false,
-      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 30 },
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 35 },
       "id": 105,
       "title": "📊 System Info",
       "type": "row"
@@ -457,7 +505,7 @@
       "fieldConfig": {
         "defaults": { "unit": "s" }
       },
-      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 31 },
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 36 },
       "id": 50,
       "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "value", "graphMode": "none" },
       "title": "Uptime",
@@ -469,7 +517,7 @@
       "fieldConfig": {
         "defaults": { "unit": "none" }
       },
-      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 31 },
+      "gridPos": { "h": 4, "w": 6, "x": 6, "y": 36 },
       "id": 51,
       "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "value", "graphMode": "area" },
       "title": "Processes",
@@ -484,7 +532,7 @@
       "fieldConfig": {
         "defaults": { "unit": "bytes" }
       },
-      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 31 },
+      "gridPos": { "h": 4, "w": 6, "x": 12, "y": 36 },
       "id": 52,
       "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "value", "graphMode": "none" },
       "title": "GPU VRAM Used",
@@ -496,7 +544,7 @@
       "fieldConfig": {
         "defaults": { "unit": "bytes" }
       },
-      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 31 },
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 36 },
       "id": 53,
       "options": { "reduceOptions": { "calcs": ["lastNotNull"] }, "colorMode": "value", "graphMode": "none" },
       "title": "RAM Total",
